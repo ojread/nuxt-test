@@ -1,11 +1,24 @@
 // Nuxtent config.
 
 module.exports = {
-  content: {
-    permalink: ':slug',
-    page: '/_page',
-    isPost: false,
-  },
+  content: [
+    [
+      'pages', {
+        page: '_page',
+        permalink: ':section/:slug',
+        isPost: false,
+        generate: [
+          'get',
+          'getAll',
+        ]
+      }
+    ], [
+      'posts', {
+        page: '_post',
+        permalink: 'posts/:year/:month/:day/:slug',
+      }
+    ]
+  ],
 
   api: {
     baseURL: 'http://localhost:3000',
