@@ -19,12 +19,15 @@
           class="button--grey">GitHub</a>
       </div>
 
-      <h2>Pages</h2>
-      <ul>
-        <li v-for="page in pages" :key="page.title">
-          {{ page.title }}
-        </li>
-      </ul>
+      <aside class="menu">
+        <h2 class="menu-label">Pages</h2>
+        <ul class="menu-list">
+          <li v-for="page in pages" :key="page.title">
+            <a :href="page.permalink">{{ page.title }}</a>
+          </li>
+        </ul>
+      </aside>
+
     </div>
   </section>
 </template>

@@ -33,10 +33,29 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+    },
+
+    /*
+    ** Suppress PostCss warnings when loading Bulma.
+    */
+    postcss: {
+      plugins: {
+        'postcss-custom-properties': {
+          warnings: false
+        }
+      }
     }
   },
 
   modules: [
     'nuxtent'
   ],
+
+  /*
+  ** Global CSS
+  */
+  css: [
+    { src: 'bulma/bulma.sass', lang: 'sass' },
+    { src: 'font-awesome/scss/font-awesome.scss', lang: 'sass' }
+  ]
 }
