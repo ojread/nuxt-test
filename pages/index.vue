@@ -23,7 +23,16 @@
         <h2 class="menu-label">Pages</h2>
         <ul class="menu-list">
           <li v-for="page in pages" :key="page.title">
-            <a :href="page.permalink">{{ page.title }}</a>
+            <nuxt-link :to="page.permalink">{{ page.title }}</nuxt-link>
+          </li>
+        </ul>
+      </aside>
+
+      <aside class="menu">
+        <h2 class="menu-label">Posts</h2>
+        <ul class="menu-list">
+          <li v-for="post in posts" :key="post.title">
+            <nuxt-link :to="post.permalink">{{ post.title }}</nuxt-link>
           </li>
         </ul>
       </aside>
@@ -33,19 +42,19 @@
 </template>
 
 <script>
-// import AppLogo from '~/components/AppLogo.vue'
-
-// export default {
-//   components: {
-//     AppLogo
-//   }
-// }
+  import AppLogo from '~/components/AppLogo.vue'
 
   export default {
     async asyncData ({ app }) {
+      console.log(app.$content('pages').getAll());
       return {
-        pages: await app.$content('pages').getAll()
+        pages: await app.$content('pages').getAll(),
+        posts: await app.$content('posts').getAll()
       }
+    },
+
+    components: {
+      AppLogo
     }
   }
 </script>

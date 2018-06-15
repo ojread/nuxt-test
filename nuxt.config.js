@@ -31,7 +31,7 @@ module.exports = {
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
           exclude: /(node_modules)/
-        })
+        });
       }
     },
 
@@ -58,4 +58,4 @@ module.exports = {
     { src: 'bulma/bulma.sass', lang: 'sass' },
     { src: 'font-awesome/scss/font-awesome.scss', lang: 'sass' }
   ]
-}
+};

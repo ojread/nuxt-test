@@ -5,7 +5,7 @@ module.exports = {
     [
       'pages', {
         page: '_page',
-        permalink: ':section/:slug',
+        permalink: ':section*/:slug', // * allows nested sections
         isPost: false,
         generate: [
           'get',
@@ -14,14 +14,18 @@ module.exports = {
       }
     ], [
       'posts', {
-        page: '_post',
+        page: 'posts/_post',
         permalink: 'posts/:year/:month/:day/:slug',
+        generate: [
+          'get',
+          'getAll',
+        ]
       }
     ]
   ],
 
   api: {
-    baseURL: 'http://localhost:3000',
-    browserBaseURL: 'http://localhost:3000',
+    baseURL: process.env.BASE_URL || 'http://localhost:3000',
+    browserBaseURL: process.env.BASE_URL || 'http://localhost:3000',
   }
 };
