@@ -13,10 +13,7 @@
   export default {
     props: {
       items: {
-        default: () => ([{
-          title: 'test',
-          permalink: 'test'
-        }])
+        default: () => ([])
       }
     }
   }
