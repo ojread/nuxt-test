@@ -13,7 +13,7 @@
       <div class="columns">
 
         <div class="column is-one-third">
-          <nav-menu v-bind:items="pages" v-bind:currentPath="path" />
+          <nav-menu :items="pages" :currentRoute="route" />
         </div>
 
         <div class="column">
@@ -33,17 +33,30 @@
   export default {
     asyncData: async({ app, route, payload }) => {
       console.log(app, route, payload);
+
+/*
+route.params.section is the current page's folder
+route.path is the current full path
+
+*/
+
       return {
         // Current page
         page: await app.$content('pages').get(route.path) || payload,
 
         // All pages for menu.
-        // Can only be accessed from a 'page' component?
         pages: await app.$content('pages')
           .query({ exclude: ['body'] })
           .getAll(),
 
-        path: await app.context.route.path,
+        route: {
+          path: route.path,
+          section: route.params.section ? '/' + route.params.section : '/',
+        },
+
+        currentPath: route.path,
+
+        currentSection: route.params.section,
       }
     },
 
