@@ -1,19 +1,30 @@
 <template>
-  <main class="container">
-    <div class="columns">
-
-      <div class="column is-one-third">
-        <!-- <nav-menu v-bind:items="pages" v-bind:path="path" /> -->
+  <div>
+    <section class="hero is-primary">
+      <div class="container">
+        <div class="hero-body">
+          <h1 class="title">{{ page.title }}</h1>
+          <h2 class="subtitle">{{ page.subtitle }}</h2>
       </div>
-
-      <div class="column">
-        <section>
-          <h1>Page: {{ page.title }}</h1>
-          <nuxtent-body :body="page.body" />
-        </section>
       </div>
-    </div>
-  </main>
+    </section>
+
+    <main class="container">
+      <div class="columns">
+
+        <div class="column is-one-third">
+          <nav-menu v-bind:items="pages" v-bind:currentPath="path" />
+        </div>
+
+        <div class="column">
+          <section>
+            <h1>Page: {{ page.title }}</h1>
+            <nuxtent-body :body="page.body" />
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
 </template>
 
 <script>
@@ -28,11 +39,11 @@
 
         // All pages for menu.
         // Can only be accessed from a 'page' component?
-        // pages: await app.$content('pages')
-        //   .query({ exclude: ['body'] })
-        //   .getAll(),
+        pages: await app.$content('pages')
+          .query({ exclude: ['body'] })
+          .getAll(),
 
-        // path: await route.path,
+        path: await app.context.route.path,
       }
     },
 

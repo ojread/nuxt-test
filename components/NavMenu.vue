@@ -5,8 +5,7 @@
       <h2 class="menu-label">Pages</h2>
       <ul class="menu-list">
         <li v-for="(item, index) in items" :key="index">
-          {{item.path}} - {{path}}
-          <nuxt-link :to="item.path" v-bind:class="{ 'is-active': (item.path === path) }">
+          <nuxt-link :to="item.path" v-bind:class="{ 'is-active': (item.path === currentPath) }">
             {{ item.title }}
           </nuxt-link>
         </li>
@@ -17,11 +16,6 @@
 
 <script>
   export default {
-    props: {
-      items: {
-        default: () => ([])
-      },
-    },
-    path: {}
+    props: ['items', 'currentPath'],
   }
 </script>

@@ -56,6 +56,7 @@ module.exports = {
   */
   css: [
     { src: 'bulma/bulma.sass', lang: 'sass' },
-    { src: 'font-awesome/scss/font-awesome.scss', lang: 'sass' }
+    // { src: 'font-awesome/scss/font-awesome.scss', lang: 'sass' }
+    '@fortawesome/fontawesome-free/css/all.css'
   ]
 };
