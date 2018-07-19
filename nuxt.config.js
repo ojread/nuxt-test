@@ -48,8 +48,10 @@ module.exports = {
   },
 
   modules: [
-    'nuxtent'
+    'nuxtent',
   ],
+
+  plugins: [],
 
   /*
   ** Global CSS

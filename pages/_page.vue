@@ -1,11 +1,9 @@
 <template>
   <div>
-    <section class="hero is-primary">
+
+    <section class="section">
       <div class="container">
-        <div class="hero-body">
-          <h1 class="title">{{ page.title }}</h1>
-          <h2 class="subtitle">{{ page.subtitle }}</h2>
-      </div>
+        <breadcrumb-trail :breadcrumbs="breadcrumbs" />
       </div>
     </section>
 
@@ -18,6 +16,13 @@
 
         <div class="column">
           <section>
+            <div class="hero is-primary">
+              <div class="hero-body">
+                <h1 class="title">{{ page.title }}</h1>
+                <h2 class="subtitle">{{ page.subtitle }}</h2>
+              </div>
+            </div>
+
             <h1>Page: {{ page.title }}</h1>
             <nuxtent-body :body="page.body" />
           </section>
@@ -28,6 +33,7 @@
 </template>
 
 <script>
+  import BreadcrumbTrail from '~/components/BreadcrumbTrail.vue';
   import NavMenu from '~/components/NavMenu.vue';
 
   export default {
@@ -49,19 +55,26 @@ route.path is the current full path
           .query({ exclude: ['body'] })
           .getAll(),
 
+        breadcrumbs: route.path.split('/').map((section, index, sections) => {
+          console.log('bc', section);
+          // Split the path into sections and recreate the path for each.
+          const path = sections.slice(0, index+1).join('/');
+          return {
+            path: path,
+            title: section,
+          };
+        }),
+
         route: {
           path: route.path,
           section: route.params.section ? '/' + route.params.section : '/',
         },
-
-        currentPath: route.path,
-
-        currentSection: route.params.section,
       }
     },
 
     components: {
-      NavMenu
+      BreadcrumbTrail,
+      NavMenu,
     }
   }
 </script>

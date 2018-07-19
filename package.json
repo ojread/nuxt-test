@@ -17,7 +17,8 @@
     "@nuxtjs/axios": "^5.3.1",
     "bulma": "^0.7.1",
     "nuxt": "^1.0.0",
-    "nuxtent": "^1.4.1"
+    "nuxtent": "^1.4.1",
+    "vuex-router-sync": "^5.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",

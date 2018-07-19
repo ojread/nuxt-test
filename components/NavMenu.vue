@@ -19,13 +19,13 @@
           <nuxt-link :to="item.path" :class="{ 'is-active': (item.path === currentRoute.path) }">
             {{ item.title }}
           </nuxt-link>
-          <ul>
+          <!-- <ul>
             <li v-for="(itemChild, indexChild) in items" v-if="itemChild.meta.section === currentRoute.path" :key="indexChild">
               <nuxt-link :to="itemChild.path" :class="{ 'is-active': (itemChild.path === currentRoute.path) }">
                 {{ itemChild.title }}
               </nuxt-link>
             </li>
-          </ul>
+          </ul> -->
         </li>
       </ul>
 
