@@ -10,18 +10,23 @@
 
 <script>
 export default {
-  props: [ 'breadcrumbs' ],
+  props: [ 'pages', 'paths' ],
 
-  // computed: {
-  //   breadcrumbs: function () {
-  //     // console.log(this.$route);
-
-  //     // this.$route.matched.forEach((item) => {
-  //     //   console.log(item);
-  //     // });
-  //     return [];
-  //   }
-  // },
+  computed: {
+    breadcrumbs: function () {
+      // Map breadcrumb paths
+      return this.paths.map(path => {
+        // Find the page with this permalink.
+        const page = this.pages.find(p => {
+          return p.permalink === path; 
+        });
+        return {
+          path: path || '/',
+          title: page ? page.title : 'Home',
+        }
+      });
+    }
+  },
 }
 </script>
 

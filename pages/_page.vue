@@ -3,7 +3,7 @@
 
     <section class="section">
       <div class="container">
-        <breadcrumb-trail :breadcrumbs="breadcrumbs" />
+        <breadcrumb-trail :pages="pages" :paths="paths" />
       </div>
     </section>
 
@@ -55,14 +55,11 @@ route.path is the current full path
           .query({ exclude: ['body'] })
           .getAll(),
 
-        breadcrumbs: route.path.split('/').map((section, index, sections) => {
+        paths: route.path.split('/').map((section, index, sections) => {
           console.log('bc', section);
           // Split the path into sections and recreate the path for each.
           const path = sections.slice(0, index+1).join('/');
-          return {
-            path: path,
-            title: section,
-          };
+          return path || '/';
         }),
 
         route: {
