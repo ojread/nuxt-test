@@ -2,14 +2,14 @@
   <aside class="box">
     <!-- {{ items }} -->
     <div class="menu">
-      <h2 class="menu-label">All pages</h2>
+      <!-- <h2 class="menu-label">All pages</h2>
       <ul class="menu-list">
         <li v-for="(item, index) in items" :key="index">
           <nuxt-link :to="item.path" :class="{ 'is-active': (item.path === currentRoute.path) }">
             {{ item.title }} {{ item.meta.section }}
           </nuxt-link>
         </li>
-      </ul>
+      </ul> -->
 
       <h2 class="menu-label">Current section: {{ currentRoute.section }}</h2>
 
