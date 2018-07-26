@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <section class="section">
       <div class="container">
         <breadcrumb-trail :pages="pages" :path="path" />
@@ -11,7 +10,8 @@
       <div class="columns">
 
         <div class="column is-one-third">
-          <nav-menu :items="pages" :currentRoute="route" />
+          <nav-menu title="Sibling pages" :items="pages" :section="section" :path="path" />
+          <nav-menu title="Child pages" :items="pages" :section="path" :path="path" />
         </div>
 
         <div class="column">
@@ -57,10 +57,7 @@ route.path is the current full path
 
         path: await route.path,
 
-        route: {
-          path: route.path,
-          section: route.params.section ? '/' + route.params.section : '/',
-        },
+        section: await route.params.section ? '/' + route.params.section : '/',
       }
     },
 

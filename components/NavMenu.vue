@@ -1,52 +1,36 @@
 <template>
   <aside class="box">
-    <!-- {{ items }} -->
     <div class="menu">
-      <!-- <h2 class="menu-label">All pages</h2>
+      <h2 class="menu-label">{{ title }}</h2>
       <ul class="menu-list">
-        <li v-for="(item, index) in items" :key="index">
-          <nuxt-link :to="item.path" :class="{ 'is-active': (item.path === currentRoute.path) }">
-            {{ item.title }} {{ item.meta.section }}
-          </nuxt-link>
-        </li>
-      </ul> -->
-
-      <h2 class="menu-label">Current section: {{ currentRoute.section }}</h2>
-
-      <h2 class="menu-label">Sibling pages</h2>
-      <ul class="menu-list">
-        <li v-for="(item, index) in items" v-if="item.meta.section === currentRoute.section" :key="index">
-          <nuxt-link :to="item.path" :class="{ 'is-active': (item.path === currentRoute.path) }">
-            {{ item.title }}
-          </nuxt-link>
-          <!-- <ul>
-            <li v-for="(itemChild, indexChild) in items" v-if="itemChild.meta.section === currentRoute.path" :key="indexChild">
-              <nuxt-link :to="itemChild.path" :class="{ 'is-active': (itemChild.path === currentRoute.path) }">
-                {{ itemChild.title }}
-              </nuxt-link>
-            </li>
-          </ul> -->
-        </li>
-      </ul>
-
-      <h2 class="menu-label">Child pages</h2>
-      <ul class="menu-list">
-        <li v-for="(item, index) in items" v-if="item.meta.section === currentRoute.path" :key="index">
-          <nuxt-link :to="item.path" :class="{ 'is-active': (item.path === currentRoute.path) }">
+        <li v-for="(item, index) in menuItems" :key="index">
+          <nuxt-link :to="item.path" :class="{ 'is-active': (item.path === path) }">
             {{ item.title }}
           </nuxt-link>
         </li>
       </ul>
-
     </div>
   </aside>
 </template>
 
 <script>
+  // NavMenu lists pages under the given path.
   export default {
     props: [ 
-      'items',
-      'currentRoute',
+      'title',    // Widget title
+      'items',    // All content items
+      'section',  // The section to list content from
+      'path'      // The current path
     ],
+
+    computed: {
+      menuItems () {
+        // Filter menu items to the requested section.
+        return this.items.filter(item => {
+          console.log('menuItems', item.meta.section, this.section);
+          return item.meta.section === this.section;
+        });
+      }
+    }
   }
 </script>
