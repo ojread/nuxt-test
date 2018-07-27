@@ -21,6 +21,16 @@ module.exports = {
           'getAll',
         ]
       }
+    ], [
+      'people', {
+        page: 'people/_person',
+        permalink: 'people/:slug',
+        isPost: false,
+        generate: [
+          'get',
+          'getAll',
+        ]
+      }
     ]
   ],
 

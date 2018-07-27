@@ -1,5 +1,5 @@
 <template>
-  <aside class="box">
+  <aside class="box" v-if="menuItems.length">
     <div class="menu">
       <h2 class="menu-label">{{ title }}</h2>
       <ul class="menu-list">
@@ -27,7 +27,6 @@
       menuItems () {
         // Filter menu items to the requested section.
         return this.items.filter(item => {
-          console.log('menuItems', item.meta.section, this.section);
           return item.meta.section === this.section;
         });
       }
