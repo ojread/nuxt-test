@@ -22,6 +22,16 @@ module.exports = {
         ]
       }
     ], [
+      'companies', {
+        page: 'companies/_company',
+        permalink: 'companies/:slug',
+        isPost: false,
+        generate: [
+          'get',
+          'getAll',
+        ]
+      }
+    ], [
       'people', {
         page: 'people/_person',
         permalink: 'people/:slug',
@@ -31,6 +41,7 @@ module.exports = {
           'getAll',
         ]
       }
+
     ]
   ],
 

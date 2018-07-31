@@ -7,7 +7,8 @@
       <div class="navbar-menu">
         <div class="navbar-start">
           <nuxt-link class="navbar-item" to="/test">Test page</nuxt-link>
-          <nuxt-link class="navbar-item" to="/posts">Posts</nuxt-link>
+          <!-- <nuxt-link class="navbar-item" to="/posts">Posts</nuxt-link> -->
+          <nuxt-link class="navbar-item" to="/companies">Companies</nuxt-link>
           <nuxt-link class="navbar-item" to="/people">People</nuxt-link>
         </div>
         <div class="navbar-end">
