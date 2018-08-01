@@ -4,89 +4,115 @@ const fs = require('fs');
 const rimraf = require('rimraf');
 const faker = require('faker');
 
-function createPeople(count) {
-  console.log('Creating people...');
-  for (let i = 0; i < count; i++) {
-    //const person = faker.helpers.createCard(); // random contact card containing many properties
-    //console.log(person);
-    const person = {
-      firstName: faker.name.firstName(),
-      lastName: faker.name.lastName(),
-      email: faker.internet.email(),
-      phone: faker.phone.phoneNumber(),
-      job: faker.name.jobTitle(),
-      avatar: faker.image.avatar(),
-      bio: faker.lorem.paragraph(),
-    };
+// Promisify functions so we can await their results.
 
-    const slug = person.firstName + '-' + person.lastName;
-    const filename = './content/people/' + faker.helpers.slugify(slug).toLowerCase() + '.md';
+// Clear the given dir of all files.
+const emptyDir = (dir) => {
+  return new Promise((resolve, reject) => {
+    rimraf(dir, (err) => {
+      if (err) reject(err);
+      else resolve();
+    });
+  });
+};
 
-    let content = '';
-
-    content += '---\n';
-    content += 'firstName: ' + person.firstName + '\n';
-    content += 'lastName: ' + person.lastName + '\n';
-    content += 'email: ' + person.email + '\n';
-    content += 'phone: ' + person.phone + '\n';
-    content += 'job: ' + person.job + '\n';
-    content += 'avatar: ' + faker.image.avatar() + '\n';
-    content += '---\n';
-    content += person.bio + '\n';
-
+// Write content to the filename.
+const writeFile = (filename, content) => {
+  return new Promise((resolve, reject) => {
     fs.appendFile(filename, content, function (err) {
-      if (err) throw err;
+      if (err) reject(err);
+      else resolve();
     }); 
+  });
+};
+
+// Convert object to Markdown text with front matter and body.
+function objToMarkdown(obj) {
+  let md = '---' + '\n';
+  Object.keys(obj).forEach((key) => {
+    if (key !== 'body') {
+      md += key + ': ' + obj[key] + '\n';
+    }
+  });
+  md += '---' + '\n';
+  if (obj.body) {
+    md += obj.body + '\n';
   }
-  console.log(count + ' people created');
+  return md;
 }
 
-function createCompanies(count) {
-  console.log('Creating companies...');
-  for (let i = 0; i < count; i++) {
-
+// Create fake content.
+const createCompany  = () => {
+  return new Promise((resolve, reject) => {
     const company = {
       name: faker.company.companyName(),
       description: faker.company.catchPhrase(),
       city: faker.address.city(),
       body: faker.lorem.paragraph(),
     };
+    company.slug = faker.helpers.slugify(company.name).toLowerCase()
+    const filename = './content/companies/' + company.slug + '.md';
+  
+    const markdown = objToMarkdown(company);
+    //console.log(markdown);
 
-    //console.log(company);
-
-    const filename = './content/companies/' + faker.helpers.slugify(company.name).toLowerCase() + '.md';
-
-    let content = '';
-
-    content += '---\n';
-    content += 'name: ' + company.name + '\n';
-    content += 'description: ' + company.description + '\n';
-    content += 'city: ' + company.city + '\n';
-    content += '---\n';
-    content += company.body + '\n';
-
-    fs.appendFile(filename, content, function (err) {
-      if (err) throw err;
-    }); 
-  }
-  console.log(count + ' companies created');
+    writeFile(filename, markdown)
+      .then(resolve(), reject());
+  });
 }
 
 
-// Clear content directory, then create new content.
+const createPerson = () => {
+  return new Promise((resolve, reject) => {
+    // Pick a company for this person.
+    fs.readdir('./content/companies', (err, files) => {
+      const companyIndex = Math.floor( Math.random() * files.length );
+      const companyFilename = files[companyIndex];
+      const companySlug = companyFilename.split('.')[0];
 
-rimraf('./content/companies/*', (error) => {
-  if (error) {
-    throw error;
-  } else {
-    createCompanies(10);
-  }
-});
+      const person = {
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+        email: faker.internet.email(),
+        phone: faker.phone.phoneNumber(),
+        job: faker.name.jobTitle(),
+        avatar: faker.image.avatar(),
+        companySlug: companySlug,
+        body: faker.lorem.paragraph(),
+      };
+      person.slug = faker.helpers.slugify( person.firstName + '-' + person.lastName ).toLowerCase();
+      const filename = './content/people/' + person.slug + '.md';
+    
+      const markdown = objToMarkdown(person);
+      //console.log(markdown);
+  
+      writeFile(filename, markdown)
+        .then(resolve(), reject());
+    });    
+  });
+}
 
-rimraf('./content/people/*', (error) => {
-  if (error) {
-    throw error;
-  } else {
-    createPeople(30);
+
+
+
+const peopleCount = 30;
+const companyCount = 10;
+
+// Main function. Await promises to ensure correct order.
+async function createFixtures() {
+  await emptyDir('./content/companies/*');
+  for (let i = 0; i < companyCount; i++) {
+    await createCompany()
   }
-});
+  console.log(`Created ${companyCount} companies`);
+
+  await emptyDir('./content/people/*');
+  for (let i = 0; i < peopleCount; i++) {
+    await createPerson()
+  }
+  console.log(`Created ${peopleCount} people`);
+}
+
+createFixtures();
+
+

@@ -1,15 +1,29 @@
 <template>
   <div class="card">
+
     <div class="card-content">
       <div class="media">
         <div class="media-left">
-          <figure class="image is-128x128">
-            <img :src="person.avatar" :alt="name">
-          </figure>
+          <nuxt-link :to="'/people/' + person.slug">
+            <figure class="image is-128x128">
+              <img :src="person.avatar" :alt="name">
+            </figure>
+          </nuxt-link>
         </div>
         <div class="media-content">
-          <p class="title is-4">{{ name }}</p>
-          <p class="subtitle is-6">{{ person.job }}</p>
+          <p class="title is-4">
+            <nuxt-link :to="'/people/' + person.slug">
+              {{ person.firstName }} {{ person.lastName }}
+            </nuxt-link>
+          </p>
+          <p class="subtitle is-6">
+            {{ person.job }}
+          </p>
+          <p class="subtitle is-6" v-if="person.company">
+            <nuxt-link :to="'/companies/' + person.company.slug">
+              {{ person.company.name }}
+            </nuxt-link>
+          </p>
         </div>
       </div>
 
