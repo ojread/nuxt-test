@@ -14,7 +14,7 @@ module.exports = {
       }
     ], [
       'posts', {
-        page: 'posts/_post',
+        page: 'posts/_post.vue',
         permalink: 'posts/:year/:month/:day/:slug',
         generate: [
           'get',
@@ -23,7 +23,7 @@ module.exports = {
       }
     ], [
       'companies', {
-        page: 'companies/_company',
+        page: 'companies/_company.vue',
         permalink: 'companies/:slug',
         isPost: false,
         generate: [
@@ -33,7 +33,7 @@ module.exports = {
       }
     ], [
       'people', {
-        page: 'people/_person',
+        page: 'people/_person.vue',
         permalink: 'people/:slug',
         isPost: false,
         generate: [
@@ -41,8 +41,7 @@ module.exports = {
           'getAll',
         ]
       }
-
-    ]
+    ],
   ],
 
   api: {

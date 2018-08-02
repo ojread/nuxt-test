@@ -4,7 +4,7 @@
       <h2 class="menu-label">{{ title }}</h2>
       <ul class="menu-list">
         <li v-for="(item, index) in menuItems" :key="index">
-          <nuxt-link :to="item.path" :class="{ 'is-active': (item.path === path) }">
+          <nuxt-link :to="item.permalink" :class="{ 'is-active': (item.permalink === path) }">
             {{ item.title }}
           </nuxt-link>
         </li>

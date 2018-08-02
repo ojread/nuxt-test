@@ -14,10 +14,10 @@
     "fixtures": "node fixtures.js"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.1.1",
+    "@fortawesome/fontawesome-free": "^5.2.0",
     "@nuxtjs/axios": "^5.3.1",
     "bulma": "^0.7.1",
-    "nuxt": "^1.0.0",
+    "nuxt": "^1.4.2",
     "nuxtent": "^1.4.1",
     "vuex-router-sync": "^5.0.0"
   },
@@ -26,10 +26,10 @@
     "eslint": "^4.15.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.7.1",
-    "eslint-plugin-vue": "^4.7.0",
+    "eslint-plugin-vue": "^4.7.1",
     "faker": "^4.1.0",
     "node-sass": "^4.9.2",
     "rimraf": "^2.6.2",
-    "sass-loader": "^7.0.3"
+    "sass-loader": "^7.1.0"
   }
 }

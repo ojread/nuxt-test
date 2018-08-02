@@ -36,6 +36,8 @@
   import BreadcrumbTrail from '~/components/BreadcrumbTrail.vue';
   import NavMenu from '~/components/NavMenu.vue';
 
+  console.log('_page.vue');
+
   export default {
     asyncData: async({ app, route, payload }) => {
       console.log(app, route, payload);
